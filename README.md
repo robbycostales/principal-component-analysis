@@ -8,8 +8,8 @@ For the second assignment, you will
     * In pca.R, skeleton code is provided in the R language.  This code is given for the application of image compression.
     * In python_pca.py, skeleton code is provided in python3.  This code is given for the application of text classification.
     * In virginica.jpg, you will find a color image of an iris, species virginica.
-    * In assoc_pressMat.csv, you will find a very sparse matrix, 2247-by-10474, where the columns are indexed by 10474 terms that appear in 2247 Associated Press articles.
-    * In assoc_pressTerms.txt, you have access to each of the 10474 terms.
+    * In assoc_pressMat.csv (contained in assoc_press.zip), you will find a very sparse matrix, 2247-by-10474, where the columns are indexed by 10474 terms that appear in 2247 Associated Press articles.
+    * In assoc_pressTerms.txt (contained in assoc_press.zip), you have access to each of the 10474 terms.
 
 2. Analyze your results.  
     * After applying PCA to the original image, you retrieve a basis of lesser dimension.  What can you do in order to obtain a compressed image?  Describe the image.  Do you believe the low-rank you choose to be the best?  What have we seen in previous lessons that might help you determine this?
