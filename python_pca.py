@@ -2,33 +2,39 @@ import numpy as np
 from numpy import linalg as la
 import pandas as pd
 
+#
+# param: data - the data we want to transform, it's a pandas data frame
+# param: dim_reduced - the size of the transformed data
+#
+# returns a dictionary containing the principal components, principal values, the low-dimensional representation, and relative accuracy
+#
 def pca(data, dim_reduced):
   
-    num_samples, num_features = np.shape(data); 
-    C = np.cov(data)
+  	# calculate the dimensions of the data
+    num_samples, num_features = 
+    #find the covariance matrix
+    C = 
+    # find the eigen vectors and eigen values of the covariance matrix
+    eig_val, eig_vec = 
+    # determine which columns in eig_vec are the principal components
+    principal_components =
     
-    eig_val, eig_vec = la.eig(C)
-    
-    principal_components = eig_vec[:,0:dim_reduced]
-    
-    n, k = np.shape(principal_components)
-    
-    # X = t(principal_components) %*% t(data)
-    # repr = t(X) %*% t(principal_components)
-    # error = norm( data - repr, '2')/norm(data, '2')
-        
-    principal_values = eig_val[0:dim_reduced]
+    # multiply the principal components and the data to transform    
+    X = 
+    # the low-dimensional representation
+    repr = np.matmul(X.transpose(), principal_components.transpose())
+    # relative accuracy
+    error = np.linalg.norm( data - repr.transpose(), ord = 2)/np.linalg.norm(data, ord = 2)
+     
+    # what are the principal values?  
+    principal_values = 
     
     return {"transform":principal_components, "values":principal_values, "representation":repr, "relative residual":error}
     
 # For the term-document matrix
 data = pd.read_csv(open('./Documents/assoc_pressMat.csv'))
-dim_reduced = 20
+# choose your own low-rank
+dim_reduced = 
 
 results = pca(data, dim_reduced)
-
-# plot(as.cimg(results$representation))
-# print(results$`relative residual`)
-
-
-  
+ 
