@@ -15,4 +15,4 @@ For the second assignment, you will
     * After applying PCA to the original image, you retrieve a basis of lesser dimension.  What can you do in order to obtain a compressed image?  Describe the image.  Do you believe the low-rank you choose to be the best?  What have we seen in previous lessons that might help you determine this?
     * How do you think you can analyze your results for the Associated Press data?  Hint: understanding what the rows and columns represent in the low-dimensional model can help you!
 
-**Due on April 18th**
+**Due on April 13th**
