@@ -44,11 +44,14 @@ def pca(data, dim_reduced):
     else:
         print(" ")
 
-
     v = np.matmul(p, y)
     vt = np.transpose(v)
     redyt = np.matmul(vt, p)
     redy = np.transpose(redyt)
+
+    error = np.linalg.norm(y - redy, ord=2) / np.linalg.norm(y, ord=2)
+    print("Error: {}".format(error))
+
 
     print("Image Dimensions:  ", len(redy), len(redy[0]))
     print(" ")
