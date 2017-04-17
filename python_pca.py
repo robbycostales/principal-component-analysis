@@ -1,3 +1,10 @@
+#! /usr/bin/env python3
+
+#
+# Graded by Amanda on 4/17
+# 0/30
+#
+
 # Author: Robert Costales
 # Date: 2017 04 12
 # Language: Python 3
@@ -38,7 +45,7 @@ def pca(data, dim_reduced):
     qt = np.transpose(q)                    # transpose of q
     p = qt[0:dim_reduced]                  # takes first dim_reduced rows of qt
 
-    print("P Dimensions:  ", len(p), end=" ")
+    print("P Dimensions:  ", len(p), " ")
     if len(p) != 0:
         print(len(p[0]))
     else:
@@ -81,6 +88,9 @@ if show_init_image:
 
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ PCA CALL _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ #
 
+#
+# Robby, for some reason this doesn't work? Nothing appears for me, just black images, even when k = 441
+#
 print("k = {}".format(441))
 pca(gray, 441)
 print("k = {}".format(310))
