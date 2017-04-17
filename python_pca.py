@@ -5,7 +5,7 @@
 # 0/30
 #
 
-# Author: Robert Costales
+# Authors: Robert Costales, Roop Pal
 # Date: 2017 04 12
 # Language: Python 3
 # Overview: This program converts the matrix of pixel values of an image
@@ -26,11 +26,11 @@ show_init_image = False     # shows initial image from gray-scale matrix
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ FUNCTIONS _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ #
 
 
-def pca(data, dim_reduced):
+def pca(data, dim_reduced, show_plot=True):
     """
     :param data: the data we want to transform (grayscale valued matrix)
     :param dim_reduced: the size of the transformed data
-    :return: reduced dimension image matrix
+    :return: error, (n, m, c)
     """
     # find the covariance matrix
     y = data
@@ -45,28 +45,38 @@ def pca(data, dim_reduced):
     qt = np.transpose(q)                    # transpose of q
     p = qt[0:dim_reduced]                  # takes first dim_reduced rows of qt
 
-    print("P Dimensions:  ", len(p), " ")
-    if len(p) != 0:
-        print(len(p[0]))
-    else:
-        print(" ")
 
     v = np.matmul(p, y)
+    n = len(qt)
+    if dim_reduced ==0:
+        m = 0
+    else:
+        m = len(v[0])
+    c = len(y)
+
     vt = np.transpose(v)
     redyt = np.matmul(vt, p)
     redy = np.transpose(redyt)
 
     error = np.linalg.norm(y - redy, ord=2) / np.linalg.norm(y, ord=2)
-    print("Error: {}".format(error))
 
+    # Print statements
+    if show_plot:
+        print("P Dimensions:  ", len(p), " ")
+        if len(p) != 0:
+            print(len(p[0]))
+        else:
+            print(" ")
+        print("Error: {}".format(error))
+        print("Image Dimensions:  ", len(redy), len(redy[0]))
+        print(" ")
 
-    print("Image Dimensions:  ", len(redy), len(redy[0]))
-    print(" ")
+    if show_plot:
+        plt.gray()  # comment this out for fun colors
+        plt.imshow(redy)
+        plt.show()
 
-    plt.gray()  # comment this out for fun colors
-    plt.imshow(redy)
-    plt.show()
-
+    return error, (n, m, c)
 
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ IMAGE PROCESSING _-_-_-_-_-_-_-_-_-_-_-_-_-_ #
 
@@ -89,25 +99,44 @@ if show_init_image:
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ PCA CALL _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ #
 
 #
-# Robby, for some reason this doesn't work? Nothing appears for me, just black images, even when k = 441
+# When we decrease our k value from the original dimension of the nxn covariance matrix,
+# the image becomes compressed. We can
 #
+
+show_int_images = False
 print("k = {}".format(441))
-pca(gray, 441)
+pca(gray, 441, show_int_images)
 print("k = {}".format(310))
-pca(gray, 310)
+pca(gray, 310, show_int_images)
 print("k = {}".format(231))
-pca(gray, 231)
+pca(gray, 231, show_int_images)
 print("k = {}".format(100))
-pca(gray, 100)
+pca(gray, 100, show_int_images)
 print("k = {}".format(50))
-pca(gray, 50)
+pca(gray, 50, show_int_images)
 print("k = {}".format(25))
-pca(gray, 25)
+pca(gray, 25, show_int_images)
 print("k = {}".format(7))
-pca(gray, 7)
+pca(gray, 7, show_int_images)
 print("k = {}".format(3))
-pca(gray, 3)
+pca(gray, 3, show_int_images)
 print("k = {}".format(1))
-pca(gray, 1)
+pca(gray, 1, show_int_images)
 print("k = {}".format(0))
-pca(gray, 0)
+pca(gray, 0, show_int_images)
+
+# _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ ERROR _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ #
+
+min_aic = 9*10**100
+aics = []
+for i in range(1, 442):
+    error, (n, m, c) = pca(gray, i, False)
+    aic = ((n+m)*i)/c + error*1000
+    aics.append(aic)
+    min_aic = min(min_aic, aic)
+
+ks = range(1, 442)
+
+
+plt.scatter(ks, aics)
+plt.show()
