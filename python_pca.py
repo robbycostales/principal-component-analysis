@@ -72,8 +72,12 @@ def pca(data, dim_reduced, show_plot=True):
         print(" ")
 
     if show_plot:
+        plt.clf()
         plt.gray()  # comment this out for fun colors
         plt.imshow(redy)
+        fig = plt.gcf()
+        fig.canvas.set_window_title("k = {}".format(dim_reduced))
+        plt.gcf()
         plt.show()
 
     return error, (n, m, c)
@@ -100,7 +104,7 @@ if show_init_image:
 
 #
 # When we decrease our k value from the original dimension of the nxn covariance matrix,
-# the image becomes compressed. We can
+# and we multiply vT with P (for that k), we get a compressed image
 #
 
 show_int_images = False
@@ -127,16 +131,29 @@ pca(gray, 0, show_int_images)
 
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ ERROR _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ #
 
-min_aic = 9*10**100
+min_aic = -1
+min_k = -1
 aics = []
-for i in range(1, 442):
+ks = range(1, 200, 3)
+
+print("Please wait for results... (may take up to a minute--trying to fix)\n")
+for i in ks:
     error, (n, m, c) = pca(gray, i, False)
-    aic = ((n+m)*i)/c + error*1000
+    aic = ((n+m)*i)/c + error*255*8
     aics.append(aic)
-    min_aic = min(min_aic, aic)
+    if aic < min_aic or min_aic == -1:
+        min_k = i
+        min_aic = aic
 
-ks = range(1, 442)
 
+print("Minimized error around k={0}".format(min_k))
 
+plt.clf()
 plt.scatter(ks, aics)
+plt.title("AIC vs K")
+fig = plt.gcf()
+fig.canvas.set_window_title("Optimizing K")
 plt.show()
+
+print("k = {}\n".format(min_k))
+pca(gray, min_k)
