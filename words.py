@@ -5,7 +5,7 @@ import numpy as np
 # df.as_matrix()
 
 df=pd.read_csv("./assoc_press/assoc_pressMat.csv", sep=',',header=None)
-#print(df)
+
 
 y_pre = df.values
 
@@ -25,10 +25,11 @@ for i in range(len(y)):
 labels = y_pre[0][1:]
 print("data", len(data), len(data[0]))
 
-
+# PCA on data
 data = pca.pca(data, 4, False)[2]
 
 
+# Show top words from first 3 articles
 for i in range(len(data)):
     print(i)
     points = []
@@ -49,4 +50,5 @@ for i in range(len(data)):
 # Article 3:
 # We see "bush" again
 
-# These articles must have been from a time when Bush was in office
+# These articles must have been from a time when Bush was in office /
+# must have to do with the country's affairs at that time
