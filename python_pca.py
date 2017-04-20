@@ -26,14 +26,14 @@ show_init_image = False     # shows initial image from gray-scale matrix
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_ FUNCTIONS _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ #
 
 
-def pca(data, dim_reduced, show_plot=True, labels=[]):
+def pca(data, dim_reduced, show_plot=True):
     """
     :param data: the data we want to transform (grayscale valued matrix)
     :param dim_reduced: the size of the transformed data
     :return: error, (n, m, c)
     """
     # find the covariance matrix
-    print(labels)
+
     y = data
     yt = np.transpose(y)
     c = np.cov(y)             # create covariance matrix
@@ -42,12 +42,9 @@ def pca(data, dim_reduced, show_plot=True, labels=[]):
     eig_val = eig_val[idx]
     eig_vec = eig_vec[:, idx]
 
-    labels = labels[idx]
-
     q = eig_vec                             # is full eigen-vector matrix
     qt = np.transpose(q)                    # transpose of q
     p = qt[0:dim_reduced]                 # takes first dim_reduced rows of qt
-    labels = labels[0:dim_reduced]
 
     v = np.matmul(p, y)
     n = len(qt)
@@ -74,7 +71,6 @@ def pca(data, dim_reduced, show_plot=True, labels=[]):
         print("Image Dimensions:  ", len(redy), len(redy[0]))
         print(" ")
 
-    print(labels)
     if show_plot:
         plt.clf()
         plt.gray()  # comment this out for fun colors

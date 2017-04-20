@@ -24,7 +24,4 @@ for i in range(len(y)):
 
 labels = y_pre[0][1:]
 
-
-print(data)
-
-pca.pca(data, 1, True, labels)
+pca.pca(data, 1, True)
