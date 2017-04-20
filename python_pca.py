@@ -61,6 +61,8 @@ def pca(data, dim_reduced, show_plot=True):
     error = np.linalg.norm(y - redy, ord=2) / np.linalg.norm(y, ord=2)
 
     # Print statements
+    print("V:", len(v), len(v[0]))
+    
     if show_plot:
         print("P Dimensions:  ", len(p), " ")
         if len(p) != 0:
