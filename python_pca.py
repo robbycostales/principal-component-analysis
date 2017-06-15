@@ -1,10 +1,5 @@
 #! /usr/bin/env python3
 
-#
-# Graded by Amanda on 4/17
-# 0/30
-#
-
 # Authors: Robert Costales, Roop Pal
 # Date: 2017 04 12
 # Language: Python 3
